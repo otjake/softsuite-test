@@ -1,0 +1,14 @@
+# Dependency directories
+/node_modules/
+
+# Build directory
+/dist/
+
+# IDE/editor files
+.vscode/
+.idea/
+
+# Log files
+npm-debug.log
+yarn-debug.log*
+yarn-error.log*
