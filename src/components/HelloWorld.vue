@@ -52,18 +52,18 @@ const handleClick = () => {
     </div>
   </nav>
     <!-- Sidebar -->
-    <div class="row">
+    <div class="d-flex" style="overflow: hidden;background: #F4F6F8;">
       <nav class="d-md-block bg-light sidebar" style="width: 260px; height: 100vh">
         <div class="sidebar-sticky" style="font-size: 14px;">
           <ul class="nav flex-column">
             <li class="nav-item">
-              <div class="d-flex justify-content-between align-items-center rounded nav-link nav-row" data-bs-toggle="collapse" href="#collapseExample">
+              <div class="d-flex align-items-center rounded nav-link nav-row" data-bs-toggle="collapse" href="#collapseExample">
                 <img src="../assets/Groupswitch.svg" width="24" alt="home logo" class="rounded p-1" style="background: #2D416F;"/>
-                <div class="d-flex flex-column p-2" style="color:#2D416F;">
+                <div class="d-flex flex-column p-1 ms-3" style="color:#2D416F;">
                   <span>Switch Module</span>
                   <span class="fw-bold">Payment Manager</span>
                 </div>
-                <span> <img src="../assets/down-caret.svg" width="24" alt="caret down" class="rounded p-1"/></span>
+                <span class="p-1 ms-3"> <img src="../assets/down-caret.svg" width="24" alt="caret down" class="rounded p-1"/></span>
               </div>
               <ul class="collapse disableds" id="collapseExample" style="list-style-type: none;">
                   <li class="my-3 border-bottom"><a class="dropdown-item" href="#">System Administrator</a></li>
@@ -74,7 +74,7 @@ const handleClick = () => {
             </li>
 
             <li class="nav-item">
-              <div class="d-flex  align-items-center rounded nav-link nav-row">
+              <div class="d-flex align-items-center rounded nav-link nav-row">
                 <img src="../assets/Dicon.svg" width="20" alt="home logo"/>
                 <div class="p-2 ms-3 disableds">
                   Dashboard
@@ -83,12 +83,12 @@ const handleClick = () => {
             </li>
 
             <li class="nav-item">
-              <div class="d-flex justify-content-between  align-items-center rounded nav-link nav-row" data-bs-toggle="collapse" href="#payrollActivities">
+              <div class="d-flex align-items-center rounded nav-link nav-row" data-bs-toggle="collapse" href="#payrollActivities">
                 <img src="../assets/pRoll.svg" width="20" alt="home logo"/>
-                <div class="p-2 disableds">
+                <div class="disableds p-1 ms-3">
                   Payroll Activities
                 </div>
-                <span> <img src="../assets/down-caret.svg" width="24" alt="caret down" class="rounded p-1"/></span>
+                <span> <img src="../assets/down-caret.svg" width="24" alt="caret down" class="rounded p-1 ms-5"/></span>
               </div>
               <ul class="collapse disableds" id="payrollActivities" style="list-style-type: none;">
                 <li class="my-3 border-bottom"><a class="dropdown-item" href="#">Payroll Run</a></li>
@@ -111,15 +111,15 @@ const handleClick = () => {
             </li>
 
             <li class="nav-item">
-              <div :class="{ 'nav-row': true, 'clicked': !isClicked }" @click="handleClick" class="d-flex justify-content-between  align-items-center rounded nav-link nav-row" data-bs-toggle="collapse" href="#elementSetup">
+              <div :class="{ 'nav-row': true, 'clicked': isClicked }" @click="handleClick" class="d-flex align-items-center rounded nav-link nav-row" data-bs-toggle="collapse" href="#elementSetup">
                 <img src="../assets/eSetup.svg" width="20" alt="home logo"/>
-                <div class="p-2 disableds">
+                <div class="p-2 ms-3 disableds">
                   Element Setup
                 </div>
-                <span> <img src="../assets/down-caret.svg" width="24" alt="caret down" class="rounded p-1"/></span>
+                <span> <img src="../assets/down-caret.svg" width="24" alt="caret down" class="rounded p-1 ms-5"/></span>
               </div>
               <ul class="collapse disableds" id="elementSetup" style="list-style-type: none;">
-                <li class="my-3 border-bottom"><a class="dropdown-item" href="#">Elements</a></li>
+                <li class="my-3 border-bottom"><router-link class="dropdown-item" to="/elements">Elements</router-link></li>
                 <li class="my-3 border-bottom"><a class="dropdown-item" href="#">balances</a></li>
               </ul>
             </li>
@@ -134,12 +134,12 @@ const handleClick = () => {
             </li>
 
             <li class="nav-item mt-3">
-              <div class="d-flex justify-content-between  align-items-center rounded nav-link nav-row" data-bs-toggle="collapse" href="#payrollSettings">
+              <div class="d-flex align-items-center rounded nav-link nav-row" data-bs-toggle="collapse" href="#payrollSettings">
                 <img src="../assets/eSetup.svg" width="20" alt="home logo"/>
-                <div class="p-2 disableds">
+                <div class="p-2 ms-3 disableds">
                   Payroll Settings
                 </div>
-                <span> <img src="../assets/down-caret.svg" width="24" alt="caret down" class="rounded p-1"/></span>
+                <span> <img src="../assets/down-caret.svg" width="24" alt="caret down" class="rounded p-1 ms-5"/></span>
               </div>
               <ul class="collapse disableds" id="payrollSettings" style="list-style-type: none;">
                 <li class="my-3 border-bottom"><a class="dropdown-item" href="#">Payroll Options</a></li>
@@ -171,15 +171,14 @@ const handleClick = () => {
           </ul>
         </div>
       </nav>
+      <div class="mx-5">
+        <router-view></router-view>
+      </div>
     </div>
   </div>
 </template>
 
 <style scoped>
-.disableds{
-  color: #818DA9;
-}
-
 .rounded-circle {
   border: 2px solid #fff; /* Adjust color as needed */
   padding: 2px;
