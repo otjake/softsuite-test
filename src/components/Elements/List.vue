@@ -86,11 +86,31 @@
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
-            ...
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary">Understood</button>
+            <div class="container-fluid">
+              <div class="row">
+                <div class="col text-end p-0 m-0">
+                  Element Details
+                  <div class="element-progress mt-4"></div>
+                  <div class="step-one d-flex align-items-center justify-content-center">1</div>
+                </div>
+                <div class="col text-center p-0 m-0">
+                  <div style="margin-top: 48px" class="element-progress"></div>
+                </div>
+                <div class="col text-start p-0 m-0">
+                  Additional details
+                  <div class="mt-4 element-progress"></div>
+                  <div class="step-two d-flex align-items-center justify-content-center">2</div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <button type="button" class="btn btn-outline-success element-buttons" data-bs-dismiss="modal">Cancel</button>
+              </div>
+              <div class="col">
+                <button type="button" class="btn btn-success" style="width: 100%;height:52px">Next</button>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -114,5 +134,34 @@ const breadcrumbLevels = [
   color: white !important;
   height: 50px;
   font-size: 15px;
+}
+.step-one{
+  position: relative;
+  top: -18px;
+  right: -166px;
+  width: 40px;
+  height: 40px;
+  background: white;
+  border: 1px solid #4BAA79;
+  border-radius: 50%;
+}
+.step-two{
+  position: relative;
+  top: -18px;
+  right: -46px;
+  width: 40px;
+  height: 40px;
+  background: white;
+  border: 1px solid #4BAA79;
+  border-radius: 50%;
+}
+.element-progress{
+  width: 100%;
+  height: 3px;
+  background: #CDCDCD;
+}
+.element-buttons{
+  width: 100%;
+  height:52px
 }
 </style>
