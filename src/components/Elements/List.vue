@@ -104,12 +104,80 @@
               </div>
             </div>
             <div class="row">
-              <div class="col">
-                <button type="button" class="btn btn-outline-success element-buttons" data-bs-dismiss="modal">Cancel</button>
-              </div>
-              <div class="col">
-                <button type="button" class="btn btn-success" style="width: 100%;height:52px">Next</button>
-              </div>
+              <form @submit.prevent="submitForm" class="row g-3" ref="form" novalidate>
+                <div class="row">
+                  <div class="col">
+                    {{formData.name}}
+                    <label for="name" class="form-label">First name</label>
+                    <input v-model="formData.name" :class="{ 'form-control-invalid': formValidated && !formData.name}" type="text" class="form-control" id="firstName" required>
+                    <div class="invalid-feedback" v-if="formValidated && !formData.name">
+                      Please provide a name.
+                    </div>
+                  </div>
+                  <div class="col">
+                    <label for="element-classification" class="form-label">Element Classification</label>
+                    <select class="form-select" v-model="formData.classification"  :class="{ 'form-control-invalid': formValidated && !formData.classification}" required>
+                      <option selected disabled value="">Choose...</option>
+                      <option>...</option>
+                    </select>
+                    <small class="text-danger" v-if="formValidated && !formData.classification">
+                      Please select an element classification.
+                    </small>
+                  </div>
+                </div>
+                <div class="row mt-3">
+                  <div class="col">
+                    <label for="element-category" class="form-label">Element Category</label>
+                    <select class="form-select" v-model="formData.category" :class="{ 'form-control-invalid': formValidated && !formData.category}" required>
+                      <option selected disabled value="">Choose...</option>
+                      <option>...</option>
+                    </select>
+                    <div class="valid-feedback" v-if="formValidated && formData.category">Looks good!</div>
+                    <div class="invalid-feedback" v-if="formValidated && !formData.category">
+                      Please select an element category.
+                    </div>
+                  </div>
+                  <div class="col">
+                    <label for="payrun" class="form-label">Payrun</label>
+                    <select :class="{ 'form-control-invalid': formValidated && !formData.payrun}" class="form-select" id="validationDefault04" v-model="formData.payrun" required>
+                      <option selected disabled value="">Choose...</option>
+                      <option>...</option>
+                    </select>
+                    <div class="valid-feedback" v-if="formValidated && formData.payrun">Looks good!</div>
+                    <div class="invalid-feedback" v-if="formValidated && !formData.payrun">
+                      Please select an element payrun.
+                    </div>
+                  </div>
+                </div>
+                <div class="row mt-3">
+                  <div class="col">
+                    <label for="description" class="form-label">Description</label>
+                    <textarea :class="{ 'form-control-invalid': formValidated && !formData.description}" class="form-control" placeholder="Input Description" id="floatingTextarea"></textarea>
+                    <div class="valid-feedback" v-if="formValidated && formData.description">Looks good!</div>
+                    <div class="invalid-feedback" v-if="formValidated && !formData.description">
+                      Please input a description.
+                    </div>
+                  </div>
+                </div>
+                <div class="row mt-3">
+                  <div class="col">
+                    <label for="reportingName" class="form-label">Reporting Name</label>
+                    <textarea :class="{ 'form-control-invalid': formValidated && !formData.reportingName}" class="form-control" placeholder="Input Reporting Name" id="floatingTextarea"></textarea>
+                    <div class="valid-feedback" v-if="formValidated && formData.reportingName">Looks good!</div>
+                    <div class="invalid-feedback" v-if="formValidated && !formData.reportingName">
+                      Please enter reporting name.
+                    </div>
+                  </div>
+                </div>
+                <div class="row mt-4">
+                  <div class="col">
+                    <button type="button" class="btn btn-outline-success element-buttons" data-bs-dismiss="modal">Cancel</button>
+                  </div>
+                  <div class="col">
+                    <button type="submit" class="btn btn-success" style="width: 100%;height:52px">Next</button>
+                  </div>
+                </div>
+              </form>
             </div>
           </div>
         </div>
@@ -120,6 +188,7 @@
 
 <script setup lang="ts">
 import BreadCrumbs from '../Utilities/BreadCrumbs.vue'
+import {reactive, Ref, ref, UnwrapRef} from "vue";
 // Define the breadcrumb levels
 const breadcrumbLevels = [
   { label: 'Payroll Management' },
@@ -127,6 +196,31 @@ const breadcrumbLevels = [
   { label: 'Elements', href: '/elements'},
   { label: 'Elements lust', active: true}
 ];
+const formValidated = ref(false);
+
+// Define formData as a plain TypeScript object
+const formData = reactive({
+  classification: ref(""),
+  category: ref(""),
+  description: ref(""),
+  name: ref(""),
+  payrun: ref(""),
+  reportingName: ref("")
+});
+
+// Define submitForm as a function
+const submitForm = () => {
+  console.log("submit");
+  formValidated.value = checkForm1Validity();
+}
+
+// Define checkForm1Validity as a function
+const checkForm1Validity = () => {
+  return !(
+      formData.classification && formData.name && formData.category
+      && formData.description && formData.payrun && formData.reportingName
+  );
+}
 </script>
 <style scoped>
 .table-headers {
@@ -163,5 +257,12 @@ const breadcrumbLevels = [
 .element-buttons{
   width: 100%;
   height:52px
+}
+.form-control, .form-select{
+  height: 56px;
+}
+
+.form-control-invalid {
+  border-color: #dc3545 !important;
 }
 </style>
