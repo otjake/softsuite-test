@@ -2,12 +2,12 @@
   <div>
     <BreadCrumbs :levels="breadcrumbLevels" />
 
-    <div class="container mt-5 content-section">
+    <div class="container mt-3 content-section">
       <!-- Elements Heading -->
       <h5 class="fw-bold py-3">Elements</h5>
 
       <!-- Search and Create Element Section -->
-      <div class="d-flex justify-content-between align-items-center" style="background: #F4F6F8; height: 72px">
+      <div class="d-flex justify-content-between align-items-center mb-3" style="background: #F4F6F8; height: 72px">
         <div>
           <div class="input-group  ms-3">
             <input type="text" class="form-control" placeholder="Search for anything" aria-label="Search for anything" aria-describedby="basic-addon2">
@@ -47,7 +47,7 @@
                 <div class="dropdown">
                   <img src="../../assets/ellipse.svg" alt="ellipse Image" id="elementEllipse" data-bs-toggle="dropdown"/>
                   <ul class="dropdown-menu" aria-labelledby="elementEllipse">
-                    <li><a class="dropdown-item" href="#"><img src="../../assets/view.svg" alt="view Image"/> View Element Links</a></li>
+                    <li><router-link :to="`elements/1`" class="dropdown-item"><img src="../../assets/view.svg" alt="view Image"/> View Element Links</router-link></li>
                     <li><a class="dropdown-item" href="#"><img src="../../assets/edit.svg" alt="edit Image"/> Edit Element</a></li>
                     <li><a class="dropdown-item text-danger" href="#"><img src="../../assets/delete.svg" alt="delete Image"/> Delete Element</a></li>
                   </ul>
@@ -78,149 +78,20 @@
       </div>
     </div>
     <!-- Modal -->
-    <div class="modal fade modal-lg" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="staticBackdropLabel">Create Element</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body">
-            <div class="container-fluid">
-              <div class="row">
-                <div class="col text-end p-0 m-0">
-                  Element Details
-                  <div class="element-progress mt-4"></div>
-                  <div class="step-one d-flex align-items-center justify-content-center">1</div>
-                </div>
-                <div class="col text-center p-0 m-0">
-                  <div style="margin-top: 48px" class="element-progress"></div>
-                </div>
-                <div class="col text-start p-0 m-0">
-                  Additional details
-                  <div class="mt-4 element-progress"></div>
-                  <div class="step-two d-flex align-items-center justify-content-center">2</div>
-                </div>
-              </div>
-            </div>
-            <div class="row">
-              <form @submit.prevent="submitForm" class="row g-3" ref="form" novalidate>
-                <div class="row">
-                  <div class="col">
-                    {{formData.name}}
-                    <label for="name" class="form-label">First name</label>
-                    <input v-model="formData.name" :class="{ 'form-control-invalid': formValidated && !formData.name}" type="text" class="form-control" id="firstName" required>
-                    <div class="invalid-feedback" v-if="formValidated && !formData.name">
-                      Please provide a name.
-                    </div>
-                  </div>
-                  <div class="col">
-                    <label for="element-classification" class="form-label">Element Classification</label>
-                    <select class="form-select" v-model="formData.classification"  :class="{ 'form-control-invalid': formValidated && !formData.classification}" required>
-                      <option selected disabled value="">Choose...</option>
-                      <option>...</option>
-                    </select>
-                    <small class="text-danger" v-if="formValidated && !formData.classification">
-                      Please select an element classification.
-                    </small>
-                  </div>
-                </div>
-                <div class="row mt-3">
-                  <div class="col">
-                    <label for="element-category" class="form-label">Element Category</label>
-                    <select class="form-select" v-model="formData.category" :class="{ 'form-control-invalid': formValidated && !formData.category}" required>
-                      <option selected disabled value="">Choose...</option>
-                      <option>...</option>
-                    </select>
-                    <div class="valid-feedback" v-if="formValidated && formData.category">Looks good!</div>
-                    <div class="invalid-feedback" v-if="formValidated && !formData.category">
-                      Please select an element category.
-                    </div>
-                  </div>
-                  <div class="col">
-                    <label for="payrun" class="form-label">Payrun</label>
-                    <select :class="{ 'form-control-invalid': formValidated && !formData.payrun}" class="form-select" id="validationDefault04" v-model="formData.payrun" required>
-                      <option selected disabled value="">Choose...</option>
-                      <option>...</option>
-                    </select>
-                    <div class="valid-feedback" v-if="formValidated && formData.payrun">Looks good!</div>
-                    <div class="invalid-feedback" v-if="formValidated && !formData.payrun">
-                      Please select an element payrun.
-                    </div>
-                  </div>
-                </div>
-                <div class="row mt-3">
-                  <div class="col">
-                    <label for="description" class="form-label">Description</label>
-                    <textarea :class="{ 'form-control-invalid': formValidated && !formData.description}" class="form-control" placeholder="Input Description" id="floatingTextarea"></textarea>
-                    <div class="valid-feedback" v-if="formValidated && formData.description">Looks good!</div>
-                    <div class="invalid-feedback" v-if="formValidated && !formData.description">
-                      Please input a description.
-                    </div>
-                  </div>
-                </div>
-                <div class="row mt-3">
-                  <div class="col">
-                    <label for="reportingName" class="form-label">Reporting Name</label>
-                    <textarea :class="{ 'form-control-invalid': formValidated && !formData.reportingName}" class="form-control" placeholder="Input Reporting Name" id="floatingTextarea"></textarea>
-                    <div class="valid-feedback" v-if="formValidated && formData.reportingName">Looks good!</div>
-                    <div class="invalid-feedback" v-if="formValidated && !formData.reportingName">
-                      Please enter reporting name.
-                    </div>
-                  </div>
-                </div>
-                <div class="row mt-4">
-                  <div class="col">
-                    <button type="button" class="btn btn-outline-success element-buttons" data-bs-dismiss="modal">Cancel</button>
-                  </div>
-                  <div class="col">
-                    <button type="submit" class="btn btn-success" style="width: 100%;height:52px">Next</button>
-                  </div>
-                </div>
-              </form>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+    <create-element></create-element>
   </div>
 </template>
 
 <script setup lang="ts">
 import BreadCrumbs from '../Utilities/BreadCrumbs.vue'
-import {reactive, Ref, ref, UnwrapRef} from "vue";
+import CreateElement from './CreateElement.vue'
 // Define the breadcrumb levels
 const breadcrumbLevels = [
   { label: 'Payroll Management' },
   { label: 'Element Setup' },
-  { label: 'Elements', href: '/elements'},
-  { label: 'Elements lust', active: true}
+  { label: 'Elements', active: true},
 ];
-const formValidated = ref(false);
 
-// Define formData as a plain TypeScript object
-const formData = reactive({
-  classification: ref(""),
-  category: ref(""),
-  description: ref(""),
-  name: ref(""),
-  payrun: ref(""),
-  reportingName: ref("")
-});
-
-// Define submitForm as a function
-const submitForm = () => {
-  console.log("submit");
-  formValidated.value = checkForm1Validity();
-}
-
-// Define checkForm1Validity as a function
-const checkForm1Validity = () => {
-  return !(
-      formData.classification && formData.name && formData.category
-      && formData.description && formData.payrun && formData.reportingName
-  );
-}
 </script>
 <style scoped>
 .table-headers {
@@ -228,41 +99,5 @@ const checkForm1Validity = () => {
   color: white !important;
   height: 50px;
   font-size: 15px;
-}
-.step-one{
-  position: relative;
-  top: -18px;
-  right: -166px;
-  width: 40px;
-  height: 40px;
-  background: white;
-  border: 1px solid #4BAA79;
-  border-radius: 50%;
-}
-.step-two{
-  position: relative;
-  top: -18px;
-  right: -46px;
-  width: 40px;
-  height: 40px;
-  background: white;
-  border: 1px solid #4BAA79;
-  border-radius: 50%;
-}
-.element-progress{
-  width: 100%;
-  height: 3px;
-  background: #CDCDCD;
-}
-.element-buttons{
-  width: 100%;
-  height:52px
-}
-.form-control, .form-select{
-  height: 56px;
-}
-
-.form-control-invalid {
-  border-color: #dc3545 !important;
 }
 </style>
