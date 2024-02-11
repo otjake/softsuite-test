@@ -249,6 +249,10 @@ const resetData = () => {
   backOneStep()
 }
 
+const submit = () => {
+  console.log("submitting")
+}
+
 // Define checkForm1Validity as a function
 const checkForm1Validity = () => {
   return !(formData.classification && formData.name && formData.category && formData.description && formData.payrun && formData.reportingName)
