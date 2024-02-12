@@ -86,11 +86,13 @@
 
 <script setup lang="ts">
 import SortIcon from '../../../assets/sort.svg'
-import {reactive, Ref, ref, UnwrapRef} from "vue";
+import {ref} from "vue";
 
 const showSideBar = ref(false);
-const loadDetail = (id) => {
-  showSideBar.value = true;
+const loadDetail = (id : number) => {
+  if(id){
+    showSideBar.value = true;
+  }
 }
 </script>
 <style scoped>

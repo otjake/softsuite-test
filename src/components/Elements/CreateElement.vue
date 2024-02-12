@@ -146,7 +146,7 @@
               </div>
               <div class="row mt-3">
                 <label for="paymentMonths" class="form-label">Select Payment Months</label>
-                <v-select multiple :options="options" v-model="formData.payment_months" :reduce="country => country.value"></v-select>
+                <v-select multiple :options="options" v-model="selected_payment_months" @change="retrieveValue" @input="retrieveValue"></v-select>
                 <small class="text-danger" v-if="formTab1Validated && !formData.payrun">
                   Please select payment months.
                 </small>
@@ -199,65 +199,89 @@
   </div>
 </template>
 
-<script setup lang="ts">
-import {reactive, Ref, ref, UnwrapRef} from "vue";
+<script lang="ts">
+import {defineComponent} from "vue";
+import Month from "../../types/Month";
 
-const formTab1Validated = ref(false);
-const formTab2Validated = ref(false);
-const formTab1 = ref(true);
-const formTab2 = ref(false);
-const options = [
-  { label: 'Option 1', value: 'option1' },
-  { label: 'Option 2', value: 'option2' },
-  { label: 'Option 3', value: 'option3' }
-];
+export default defineComponent({
+  name: "CreateElement",
+  data() {
+    return{
+      formTab1Validated : false,
+      formTab2Validated : false,
+      formTab2: false as boolean,
+      formTab1: true,
+      options : <Month[]>[
+        { label: 'Option 1', value: 'option1' },
+        { label: 'Option 2', value: 'option2' },
+        { label: 'Option 3', value: 'option3' }
+      ],
+      selected_payment_months : [],
+      formData : {
+        classification: "",
+        category: "",
+        description: "",
+        name: "",
+        payrun: "",
+        reportingName: "",
+        effective_start_date: "",
+        effective_end_date: "",
+        process_type: "",
+        pay_frequency: "",
+        payment_months: [] as string[],
+        pro_rate: null,
+        action: null,
+        status: false
+      }
+    }
+  },
+  watch:{
+    selected_payment_months: function () {
+      this.retrieveValue();
+    }
+  },
+  methods: {
+    // Define submitForm as a function
+    validateFirstForm  () {
+      this.formTab1Validated = this.checkForm1Validity();
+      if(!this.formTab1Validated){
+        this.formTab1 = false;
+        this.formTab2 = true;
+      }
+    },
 
-// Define formData as a plain TypeScript object
-const formData = reactive({
-  classification: ref(""),
-  category: ref(""),
-  description: ref(""),
-  name: ref(""),
-  payrun: ref(""),
-  reportingName: ref(""),
-  effective_start_date: ref(""),
-  effective_end_date: ref(""),
-  process_type: ref(""),
-  pay_frequency: ref(""),
-  payment_months: ref(null),
-  pro_rate: ref(null),
-  action: ref(null)
-});
+    backOneStep(){
+      this.formTab2 = false;
+      this.formTab1 = true;
+    },
 
-// Define submitForm as a function
-const validateFirstForm = () => {
-  console.log("submit", formTab1Validated.value);
-  formTab1Validated.value = checkForm1Validity();
-  console.log("testing", formTab1Validated.value)
-  if(!formTab1Validated.value){
-    formTab1.value = false;
-    formTab2.value = true;
+    resetData(){
+      this.backOneStep()
+    },
+
+    submit(){
+      console.log("submitting")
+    },
+
+    checkForm1Validity () {
+      return !(this.formData.classification && this.formData.name && this.formData.category && this.formData.description && this.formData.payrun && this.formData.reportingName)
+    },
+
+    retrieveValue() {
+      if (this.selected_payment_months !== null && this.selected_payment_months !== undefined) {
+        const extractedValues = this.selected_payment_months.reduce((acc : string[], month: Month) => {
+          acc.push(month.value);
+          return acc;
+        }, [] as string[]);
+
+        this.formData.payment_months = extractedValues;
+
+        console.log("Retrieved", this.formData.payment_months);
+      }
+    }
+
   }
-}
-
-const backOneStep = () => {
-  formTab2.value = false;
-  formTab1.value = true;
-}
-
-const resetData = () => {
-  backOneStep()
-}
-
-const submit = () => {
-  console.log("submitting")
-}
-
-// Define checkForm1Validity as a function
-const checkForm1Validity = () => {
-  return !(formData.classification && formData.name && formData.category && formData.description && formData.payrun && formData.reportingName)
-}
-
+})
 </script>
 
 <style scoped>

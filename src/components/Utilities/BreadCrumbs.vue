@@ -16,7 +16,7 @@
 import { defineProps } from 'vue';
 
 // Define props using defineProps
-const props = defineProps<{
+defineProps<{
   levels: { label: string, href?: string, active?: boolean }[];
 }>();
 

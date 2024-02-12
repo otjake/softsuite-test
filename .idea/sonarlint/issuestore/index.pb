@@ -28,3 +28,23 @@ C
 src/assets/user.svg,f/e/fed7fe5b8673f412b435c2d3d3b2b1369eaed228
 M
 src/components/HelloWorld.vue,0/7/07f886859652bdac6e57b790c40e8d9ef0a0721e
+D
+src/assets/check.svg,6/0/602e0021c5923ede047ef5d7e443358ebd9cd364
+H
+src/assets/prev-page.svg,9/7/978b72ec7cd48936c0354bd22b10ba52b938ba09
+<
+src/route.ts,d/f/df9e72cc2bc64f7ae11b9fa2aa4059574665ac6d
+=
+src/style.css,1/9/199c81d8625cb1aaa85a72e49e4ad72a9fed6766
+P
+ src/components/Elements/List.vue,4/b/4b393771d7a86db6a3284971cf9e591add4e1f8b
+R
+"src/components/Elements/Detail.vue,b/4/b41bd3672dbc39a0395278d5ef06c26e9ff04536
+V
+&src/components/Elements/Links/List.vue,1/b/1bb32b1113e7c3805da2eae4db36099fd838cf75
+B
+tsconfig.node.json,c/d/cd346bdc6f8eee39e4d280aa9a6f7949c2133a71
+=
+tsconfig.json,6/1/61ebb9fd6e8cf9082658121d5d81e297791dacd0
+Y
+)src/components/Elements/CreateElement.vue,3/2/32c48e385bf560e8be42a8b7a4405bd2e7ff1c45
