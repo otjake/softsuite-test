@@ -90,6 +90,7 @@ import {ref} from "vue";
 
 const showSideBar = ref(false);
 const loadDetail = (id : number) => {
+  console.log("tests",import.meta.env)
   if(id){
     showSideBar.value = true;
   }

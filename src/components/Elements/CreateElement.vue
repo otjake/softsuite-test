@@ -202,6 +202,7 @@
 <script lang="ts">
 import {defineComponent} from "vue";
 import Month from "../../types/Month";
+import ElementService from "../../services/ElementService";
 
 export default defineComponent({
   name: "CreateElement",
@@ -222,7 +223,10 @@ export default defineComponent({
         category: "",
         description: "",
         name: "",
-        payrun: "",
+        payrun: {
+          id: null,
+          name: null
+        },
         reportingName: "",
         effective_start_date: "",
         effective_end_date: "",
@@ -260,6 +264,25 @@ export default defineComponent({
     },
 
     submit(){
+      let data = {
+        "name": this.formData.name,
+        "description": this.formData.description,
+        "payRunId": this.formData.payrun.id,
+        "payRunValueId": this.formData.payrun.name,
+        "classificationId": number,
+        "classificationValueId": number,
+        "categoryId": number,
+        "categoryValueId": number,
+        "reportingName": string,
+        "processingType": string,
+        "status": string,
+        "prorate": string,
+        "effectiveStartDate": string,
+        "effectiveEndDate": string,
+        "selectedMonths": [string],
+        "payFrequency": string,
+      }
+
       console.log("submitting")
     },
 

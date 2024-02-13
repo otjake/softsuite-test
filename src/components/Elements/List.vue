@@ -2,7 +2,7 @@
   <div>
     <BreadCrumbs :levels="breadcrumbLevels" />
 
-    <div class="container mt-3 content-section">
+    <div class="container mt-3 content-section" style="min-width: 1000px">
       <!-- Elements Heading -->
       <h5 class="fw-bold py-3">Elements</h5>
 
@@ -20,7 +20,7 @@
       </div>
 
       <!-- Table Section -->
-      <div class="with-content">
+      <div class="with-content" v-if="elements.length">
         <div class="table-responsive pb-4">
           <table class="table">
             <thead>
@@ -36,18 +36,18 @@
             </thead>
             <tbody>
             <!-- Repeat this row for each element in your list -->
-            <tr>
-              <td>13th Month Allowance</td>
-              <td>Deduction</td>
-              <td>Pre-Tax Deduction</td>
-              <td class="text-success">Active</td>
-              <td>14-02-2022 | 09:30 AM</td>
-              <td>Samson Ayorinde</td>
+            <tr v-for="element in elements" :key="element.id">
+              <td>{{ element.name }}</td>
+              <td>{{ element.categoryValueId }}</td>
+              <td>{{ element.classificationValueId }}</td>
+              <td>{{ element.status }}</td>
+              <td>{{ element.createdAt }}</td>
+              <td>{{ element.modifiedBy }}</td>
               <td>
                 <div class="dropdown">
                   <img src="../../assets/ellipse.svg" alt="ellipse Image" id="elementEllipse" data-bs-toggle="dropdown"/>
                   <ul class="dropdown-menu" aria-labelledby="elementEllipse">
-                    <li><router-link :to="`elements/1`" class="dropdown-item"><img src="../../assets/view.svg" alt="view Image"/> View Element Links</router-link></li>
+                    <li><router-link :to="`elements/`+ element.id" class="dropdown-item"><img src="../../assets/view.svg" alt="view Image"/> View Element Links</router-link></li>
                     <li><a class="dropdown-item" href="#"><img src="../../assets/edit.svg" alt="edit Image"/> Edit Element</a></li>
                     <li><a class="dropdown-item text-danger" href="#"><img src="../../assets/delete.svg" alt="delete Image"/> Delete Element</a></li>
                   </ul>
@@ -70,7 +70,7 @@
           </ul>
         </nav>
       </div>
-      <div class="noContent d-flex justify-content-center align-items-center">
+      <div v-else class="noContent d-flex justify-content-center align-items-center">
         <div class="my-4 d-flex flex-column">
           <img src="../../assets/noCon.svg" alt="No content Image" class="rounded-circle"/>
           <span><img src="../../assets/danger.svg" alt="danger Image"/> There are no elements to display</span>
@@ -85,6 +85,8 @@
 <script setup lang="ts">
 import BreadCrumbs from '../Utilities/BreadCrumbs.vue'
 import CreateElement from './CreateElement.vue'
+import {onMounted, ref} from "vue";
+import ElementService from "../../services/ElementService";
 // Define the breadcrumb levels
 const breadcrumbLevels = [
   { label: 'Payroll Management' },
@@ -92,6 +94,12 @@ const breadcrumbLevels = [
   { label: 'Elements', active: true},
 ];
 
+let elements = ref([]);
+
+onMounted(async() => {
+  const { data:response } =  await ElementService.getElements();
+  elements.value = response.data.content
+});
 </script>
 <style scoped>
 .table-headers {
