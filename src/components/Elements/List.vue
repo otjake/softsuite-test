@@ -15,7 +15,7 @@
           </div>
         </div>
         <div class="col-md-4 d-flex justify-content-end me-3">
-          <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Create Element +</button>
+          <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#staticBackdrop" @click="openCreateDialogue">Create Element +</button>
         </div>
       </div>
 
@@ -95,6 +95,12 @@ const breadcrumbLevels = [
 ];
 
 let elements = ref([]);
+let openCreateModal = ref(false);
+
+const openCreateDialogue = () =>{
+  console.log("Open")
+  openCreateModal.value = true;
+}
 
 onMounted(async() => {
   const { data:response } =  await ElementService.getElements();

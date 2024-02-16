@@ -48,3 +48,17 @@ B
 tsconfig.json,6/1/61ebb9fd6e8cf9082658121d5d81e297791dacd0
 Y
 )src/components/Elements/CreateElement.vue,3/2/32c48e385bf560e8be42a8b7a4405bd2e7ff1c45
+B
+src/types/Month.ts,b/1/b1ef65f9e42245faa2a0b8a588957f44f2cb6f0b
+X
+(src/components/Utilities/BreadCrumbs.vue,d/2/d2a7396ace36728f052e1f55818ee509b85582cd
+>
+vite.config.ts,7/5/75ea7f3ea6d80d54bb5b2357996972d1632a5038
+4
+.env,3/c/3c84dcdc6bbe3d7817c49dcdc327b926fea1808a
+A
+src/vite-env.d.ts,4/a/4a1606df53288886cdd75df816f1e46b41e61eeb
+N
+src/services/ElementService.ts,3/1/31cf5e3f4ce52329234c86df49be169675b77ba1
+;
+src/Http.ts,6/a/6ad6ead42fc2d6bb0b3a1ff4ca8a8f7522d845fa

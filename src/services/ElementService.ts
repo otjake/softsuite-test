@@ -9,6 +9,10 @@ export default class ElementService {
         return Axios.get(`lookups`);
     }
 
+    static getLookupChildren(lookUpId) {
+        return Axios.get(`lookups/`+lookUpId+`/lookupvalues`);
+    }
+
     static saveElement(data) {
         return Axios.post(`elements`, { id, name, code });
     }

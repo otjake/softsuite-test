@@ -31,6 +31,9 @@ HTTP.interceptors.request.use((config) => {
 HTTP.interceptors.response.use(
     (response) => {
         NProgress.done();
+        if(response.statusText != "OK"){
+            return Promise.reject("error occured");
+        }
         return response;
     },
     async function (error) {

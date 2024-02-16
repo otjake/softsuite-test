@@ -39,7 +39,7 @@
                   <label for="element-classification" class="form-label">Element Classification</label>
                   <select class="form-select" v-model="formData.classification"  :class="{ 'form-control-invalid': formTab1Validated && !formData.classification}" required>
                     <option selected disabled value="">Choose...</option>
-                    <option>...</option>
+                    <option v-for="classification in classifications" :key="classification.id" :value="classification">{{classification.name}}</option>
                   </select>
                   <small class="text-danger" v-if="formTab1Validated && !formData.classification">Please select an element classification.</small>
                 </div>
@@ -236,8 +236,13 @@ export default defineComponent({
         pro_rate: null,
         action: null,
         status: false
-      }
+      },
+      categories : [],
+      classifications : [],
     }
+  },
+  async created() {
+    await this.fetchLookUps()
   },
   watch:{
     selected_payment_months: function () {
@@ -259,29 +264,67 @@ export default defineComponent({
       this.formTab1 = true;
     },
 
+    fetchLookUps() {
+      return ElementService.lookups()
+          .then(lookupResponse => {
+            const { data: elementsData } = lookupResponse;
+            console.log("element data", elementsData)
+            let elementClassifications = this.filterLookUpByName(elementsData.data, "Element Classification")
+            if(!elementClassifications){
+              return "Issue fetching Classification"
+            }
+            // Use the result of the first request to make another request
+            return Promise.all([
+              elementsData.data, // First request result
+              ElementService.getLookupChildren(elementClassifications.id)
+               // Another request using data from the first request
+              // Add more asynchronous operations as needed
+            ]);
+          })
+          .then(([lookups, lookupChildren]) => {
+            // elementsContent: Result of the first request
+            // someDataResponse: Response of the second request
+
+            // Process the data as needed
+            console.log('lookups:', lookups);
+            console.log('lookupChildren:', lookupChildren);
+            this.classifications = lookupChildren.data;
+          })
+          .catch(error => {
+            console.error('Error fetching data:', error);
+            // Handle errors as needed
+          });
+    },
+
+    filterLookUpByName(data, name) {
+      const filteredLookUp = data.filter(item => item.name.toLowerCase().includes(name.toLowerCase()));
+      return filteredLookUp.length > 0 ? filteredLookUp[0] : null;
+    },
+
+
     resetData(){
       this.backOneStep()
     },
 
     submit(){
-      let data = {
-        "name": this.formData.name,
-        "description": this.formData.description,
-        "payRunId": this.formData.payrun.id,
-        "payRunValueId": this.formData.payrun.name,
-        "classificationId": number,
-        "classificationValueId": number,
-        "categoryId": number,
-        "categoryValueId": number,
-        "reportingName": string,
-        "processingType": string,
-        "status": string,
-        "prorate": string,
-        "effectiveStartDate": string,
-        "effectiveEndDate": string,
-        "selectedMonths": [string],
-        "payFrequency": string,
-      }
+      // let data = {
+      //   "name": this.formData.name,
+      //   "description": this.formData.description,
+      //   "payRunId": this.formData.payrun.id,
+      //   "payRunValueId": this.formData.payrun.name,
+      //   "classificationId": number,
+      //   "classificationValueId": number,
+      //   "categoryId": number,
+      //   "categoryValueId": number,
+      //   "reportingName": string,
+      //   "processingType": string,
+      //   "status": string,
+      //   "prorate": string,
+      //   "effectiveStartDate": string,
+      //   "effectiveEndDate": string,
+      //   "selectedMonths": [string],
+      //   "payFrequency": string,
+      // }
 
       console.log("submitting")
     },
