@@ -1,5 +1,9 @@
 import { HTTP as Axios } from "../Http";
-
+interface ElementData {
+    id: number;
+    name: string;
+    code: string;
+}
 export default class ElementService {
     static getElements() {
         return Axios.get(`elements`);
@@ -9,11 +13,11 @@ export default class ElementService {
         return Axios.get(`lookups`);
     }
 
-    static getLookupChildren(lookUpId) {
+    static getLookupChildren(lookUpId: number) {
         return Axios.get(`lookups/`+lookUpId+`/lookupvalues`);
     }
 
-    static saveElement(data) {
-        return Axios.post(`elements`, { id, name, code });
+    static saveElement(data : ElementData) {
+        return Axios.post(`elements`, data);
     }
 }

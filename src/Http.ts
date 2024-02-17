@@ -1,9 +1,9 @@
 import axios from "axios";
 import Qs from "qs";
-import NProgress from 'nprogress/nprogress';
+import NProgress from 'nprogress';
 import 'nprogress/nprogress.css';
 
-let headers = {
+let headers: { [key: string]: string } = {
     "Content-Type": "application/json",
     Accept: "application/json",
 };
@@ -39,7 +39,7 @@ HTTP.interceptors.response.use(
     async function (error) {
         NProgress.done();
         if (error.response) {
-            const {status, data} = error.response;
+            const {status} = error.response;
 
             switch (status) {
                 case 401:

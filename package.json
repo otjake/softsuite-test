@@ -11,6 +11,8 @@
   "dependencies": {
     "@popperjs/core": "^2.11.8",
     "@rollup/plugin-replace": "^5.0.5",
+    "@types/nprogress": "^0.2.3",
+    "@types/qs": "^6.9.11",
     "@vitejs/plugin-legacy": "^5.3.0",
     "@vue/compiler-sfc": "^3.4.19",
     "axios": "^1.6.7",

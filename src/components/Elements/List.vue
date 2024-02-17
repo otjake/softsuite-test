@@ -94,7 +94,18 @@ const breadcrumbLevels = [
   { label: 'Elements', active: true},
 ];
 
-let elements = ref([]);
+let elements = ref([
+  {
+    id : '' as number|string,
+    name : '' as string,
+    categoryValueId  : '' as string,
+    classificationValueId  : '' as string,
+    status   : '' as string,
+    createdAt   : '' as string,
+    modifiedBy   : '' as string
+  }
+]);
+
 let openCreateModal = ref(false);
 
 const openCreateDialogue = () =>{

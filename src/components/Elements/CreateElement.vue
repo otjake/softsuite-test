@@ -238,7 +238,12 @@ export default defineComponent({
         status: false
       },
       categories : [],
-      classifications : [],
+      classifications : [
+        {
+          id : '' as number|string,
+          name : '' as string
+        }
+      ],
     }
   },
   async created() {
@@ -271,7 +276,7 @@ export default defineComponent({
             console.log("element data", elementsData)
             let elementClassifications = this.filterLookUpByName(elementsData.data, "Element Classification")
             if(!elementClassifications){
-              return "Issue fetching Classification"
+              return Promise.reject("Issue fetching Classification");
             }
             // Use the result of the first request to make another request
             return Promise.all([
@@ -296,7 +301,7 @@ export default defineComponent({
           });
     },
 
-    filterLookUpByName(data, name) {
+    filterLookUpByName(data: { name: string, id: number }[], name: string): { name: string, id: number  } | null {
       const filteredLookUp = data.filter(item => item.name.toLowerCase().includes(name.toLowerCase()));
       return filteredLookUp.length > 0 ? filteredLookUp[0] : null;
     },
