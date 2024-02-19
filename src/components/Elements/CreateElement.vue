@@ -37,7 +37,7 @@
                 </div>
                 <div class="col">
                   <label for="element-classification" class="form-label">Element Classification</label>
-                  <select class="form-select" v-model="formData.classification"  :class="{ 'form-control-invalid': formTab1Validated && !formData.classification}" required>
+                  <select class="form-select" v-model="formData.classification" @change="getCategory"  :class="{ 'form-control-invalid': formTab1Validated && !formData.classification}" required>
                     <option selected disabled value="">Choose...</option>
                     <option v-for="classification in classifications" :key="classification.id" :value="classification">{{classification.name}}</option>
                   </select>
@@ -299,6 +299,10 @@ export default defineComponent({
             console.error('Error fetching data:', error);
             // Handle errors as needed
           });
+    },
+
+    getCategory(){
+        console.log("selected classification", this.formData.classification.name);
     },
 
     filterLookUpByName(data: { name: string, id: number }[], name: string): { name: string, id: number  } | null {
